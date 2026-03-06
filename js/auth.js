@@ -13,7 +13,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const loginForm = document.getElementById("loginForm");
 
-    if (loginForm) {
+    if (loginForm && !loginForm.dataset.listenerAdded) {
+
+        loginForm.dataset.listenerAdded = "true";
+
         loginForm.addEventListener("submit", async (e) => {
             e.preventDefault();
 
@@ -25,14 +28,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // Temporary mock login
-            const fakeToken = "swapapp-demo-token";
+            try {
+                const data = await apiRequest("/auth/login", "POST", {
+                    email,
+                    password
+                });
 
-            localStorage.setItem("token", fakeToken);
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("currentUser", JSON.stringify({ id: 1, name: "User" })); // ← move this UP
+                alert("Login successful!");
+                window.location.href = "dashboard.html"; // ← redirect last
 
-            alert("Login successful!");
-            window.location.href = "dashboard.html";
+            } catch (error) {
+                alert(error.message);
+            }
         });
+
     }
 
 });
