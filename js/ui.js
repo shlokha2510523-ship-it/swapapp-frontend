@@ -73,7 +73,11 @@ async function loadDashboard() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+<<<<<<< HEAD
     loadComponent("navbar", "components/navbar.html");
     loadProjects();
     loadDashboard();
+=======
+    loadComponent("navbar", "components/navbar.html")
+>>>>>>> 98dac289955e2e83b7ab255a5c55733aa3c4bd8b
 });

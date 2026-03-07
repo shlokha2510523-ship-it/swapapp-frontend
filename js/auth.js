@@ -16,7 +16,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // LOGIN
     const loginForm = document.getElementById("loginForm");
+<<<<<<< HEAD
     if (loginForm) {
+=======
+
+    if (loginForm && !loginForm.dataset.listenerAdded) {
+
+        loginForm.dataset.listenerAdded = "true";
+
+>>>>>>> 98dac289955e2e83b7ab255a5c55733aa3c4bd8b
         loginForm.addEventListener("submit", async (e) => {
             e.preventDefault();
             const email = document.getElementById("email").value.trim();
@@ -28,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             try {
+<<<<<<< HEAD
                 const res = await fetch(`${API}/auth/login`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -131,7 +140,24 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.removeItem("token");
             localStorage.removeItem("user");
             window.location.href = "login.html";
+=======
+                const data = await apiRequest("/auth/login", "POST", {
+                    email,
+                    password
+                });
+
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("currentUser", JSON.stringify({
+                    id: data.user?.id || data.id,
+                    name: data.user?.name || data.name
+                }));
+                window.location.href = "dashboard.html";
+            } catch (error) {
+                alert(error.message);
+            }
+>>>>>>> 98dac289955e2e83b7ab255a5c55733aa3c4bd8b
         });
+
     }
 
 });
