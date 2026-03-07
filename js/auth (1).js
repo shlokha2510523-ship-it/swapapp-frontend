@@ -2,7 +2,7 @@ const API = "https://swapshop-production.up.railway.app";
 
 function checkAuth() {
     const token = localStorage.getItem("token");
-    if (!token || token === "swapapp-demo-token") {
+    if (!token) {
         window.location.href = "login.html";
     }
 }
@@ -16,15 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // LOGIN
     const loginForm = document.getElementById("loginForm");
-<<<<<<< HEAD
     if (loginForm) {
-=======
-
-    if (loginForm && !loginForm.dataset.listenerAdded) {
-
-        loginForm.dataset.listenerAdded = "true";
-
->>>>>>> 98dac289955e2e83b7ab255a5c55733aa3c4bd8b
         loginForm.addEventListener("submit", async (e) => {
             e.preventDefault();
             const email = document.getElementById("email").value.trim();
@@ -36,7 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             try {
-<<<<<<< HEAD
                 const res = await fetch(`${API}/auth/login`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -47,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (data.token) {
                     localStorage.setItem("token", data.token);
                     localStorage.setItem("user", JSON.stringify(data.user));
-                    alert("Login successful!");
+                    localStorage.setItem("currentUser", JSON.stringify(data.user));
                     window.location.href = "dashboard.html";
                 } else {
                     alert(data.message || "Login failed");
@@ -74,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             try {
-                const res = await fetch(`${API}/auth/signup`, {
+                const res = await fetch(`${API}/auth/register`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ name, email, password })
@@ -94,70 +85,15 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // CREATE PROJECT
-    const createProjectForm = document.getElementById("createProjectForm");
-    if (createProjectForm) {
-        createProjectForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const token = localStorage.getItem("token");
-            const title = document.getElementById("projectTitle").value.trim();
-            const description = document.getElementById("projectDescription").value.trim();
-            const category = document.getElementById("projectType").value;
-
-            if (!title || !description) {
-                alert("Please fill all fields");
-                return;
-            }
-
-            try {
-                const res = await fetch(`${API}/projects`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`
-                    },
-                    body: JSON.stringify({ title, description, category, percentComplete: 0 })
-                });
-                const data = await res.json();
-
-                if (res.ok) {
-                    alert("Project created successfully!");
-                    window.location.href = "project.html";
-                } else {
-                    alert(data.message || "Failed to create project");
-                }
-            } catch (err) {
-                alert("Error connecting to server");
-                console.error(err);
-            }
-        });
-    }
-
     // LOGOUT
     const logoutBtn = document.getElementById("logoutBtn");
     if (logoutBtn) {
         logoutBtn.addEventListener("click", () => {
             localStorage.removeItem("token");
             localStorage.removeItem("user");
+            localStorage.removeItem("currentUser");
             window.location.href = "login.html";
-=======
-                const data = await apiRequest("/auth/login", "POST", {
-                    email,
-                    password
-                });
-
-                localStorage.setItem("token", data.token);
-                localStorage.setItem("currentUser", JSON.stringify({
-                    id: data.user?.id || data.id,
-                    name: data.user?.name || data.name
-                }));
-                window.location.href = "dashboard.html";
-            } catch (error) {
-                alert(error.message);
-            }
->>>>>>> 98dac289955e2e83b7ab255a5c55733aa3c4bd8b
         });
-
     }
 
 });

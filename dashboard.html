@@ -9,24 +9,12 @@ tailwind.config = {
   theme: {
     extend: {
       colors: {
-<<<<<<< HEAD
         primary: '#FAD4D4',
         primaryDark: '#F5B5B5',
         secondary: '#DFF5E1',
         secondaryDark: '#C7EACB',
         accent: '#5E8C61'
       }
-=======
-        primary: '#EDE7F6',
-        primaryDark: '#D1C4E9',
-        secondary: '#F3E5F5',
-        secondaryDark: '#CE93D8',
-        accent: '#7B1FA2'
-      },
-       fontFamily: {
-        sans: ['Poppins', 'sans-serif']
-       }
->>>>>>> 98dac289955e2e83b7ab255a5c55733aa3c4bd8b
     }
   }
 }
@@ -38,131 +26,77 @@ tailwind.config = {
 <main class="flex justify-center items-start min-h-screen pt-12">
     <div class="w-full max-w-2xl px-4">
 
-        <h2 class="text-2xl font-bold mb-2 text-center">Dashboard</h2>
+        <h2 class="text-2xl font-bold mb-6 text-center">Dashboard</h2>
 
         <!-- Stats -->
-        <div id="dashboardStats"></div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="bg-green-100 p-4 rounded shadow text-center">
+                <p class="text-sm text-gray-600">Total</p>
+                <p id="totalCount" class="text-xl font-bold">0</p>
+            </div>
+            <div class="bg-green-200 p-4 rounded shadow text-center">
+                <p class="text-sm text-gray-600">Open</p>
+                <p id="openCount" class="text-xl font-bold">0</p>
+            </div>
+            <div class="bg-yellow-200 p-4 rounded shadow text-center">
+                <p class="text-sm text-gray-600">Reserved</p>
+                <p id="reservedCount" class="text-xl font-bold">0</p>
+            </div>
+            <div class="bg-red-200 p-4 rounded shadow text-center">
+                <p class="text-sm text-gray-600">Completed</p>
+                <p id="completedCount" class="text-xl font-bold">0</p>
+            </div>
+        </div>
+
+        <!-- Filter + Search -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+            <div class="flex flex-wrap gap-2">
+                <button onclick="setFilter('All')" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-full text-sm">All</button>
+                <button onclick="setFilter('Open')" class="bg-green-200 hover:bg-green-300 px-4 py-2 rounded-full text-sm">Open</button>
+                <button onclick="setFilter('Reserved')" class="bg-yellow-200 hover:bg-yellow-300 px-4 py-2 rounded-full text-sm">Reserved</button>
+                <button onclick="setFilter('Completed')" class="bg-red-200 hover:bg-red-300 px-4 py-2 rounded-full text-sm">Completed</button>
+            </div>
+            <input type="text" id="searchInput" placeholder="Search by title..."
+                class="w-full md:w-64 border border-gray-300 px-4 py-2 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-green-300">
+        </div>
 
         <!-- Create Project -->
-        <h3 class="text-xl font-bold mt-8 mb-4 text-center">Create Project</h3>
+        <h3 class="text-xl font-bold mt-4 mb-4">Create Project</h3>
         <div class="bg-white p-6 rounded-lg shadow-md">
-<<<<<<< HEAD
-            <form id="createProjectForm">
-                <div class="mb-4">
-                    <label class="block mb-2 text-sm font-medium">Project Title</label>
-                    <input type="text" id="projectTitle"
-                           class="w-full px-3 py-2 border border-secondary rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-accent"
-                           placeholder="Enter project title">
-=======
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-
-        <div class="bg-green-100 p-4 rounded shadow text-center">
-            <p class="text-sm text-gray-600">Total</p>
-            <p id="totalCount" class="text-xl font-bold">0</p>
-        </div>
-
-        <div class="bg-green-200 p-4 rounded shadow text-center">
-            <p class="text-sm text-gray-600">Open</p>
-            <p id="openCount" class="text-xl font-bold">0</p>
-        </div>
-
-        <div class="bg-yellow-200 p-4 rounded shadow text-center">
-            <p class="text-sm text-gray-600">Reserved</p>
-            <p id="reservedCount" class="text-xl font-bold">0</p>
-        </div>
-
-        <div class="bg-red-200 p-4 rounded shadow text-center">
-            <p class="text-sm text-gray-600">Completed</p>
-            <p id="completedCount" class="text-xl font-bold">0</p>
-        </div>
-
-    </div>
-
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-
-        <!-- Filter Buttons -->
-        <div class="flex flex-wrap gap-2 justify-center md:justify-start">
-            <button onclick="setFilter('All')" 
-                class="filterBtn bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-full text-sm transition">
-                All
-            </button>
-
-            <button onclick="setFilter('Open')" 
-                class="filterBtn bg-green-200 hover:bg-green-300 px-4 py-2 rounded-full text-sm transition">
-                Open
-            </button>
-
-            <button onclick="setFilter('Reserved')" 
-                class="filterBtn bg-yellow-200 hover:bg-yellow-300 px-4 py-2 rounded-full text-sm transition">
-                Reserved
-            </button>
-
-            <button onclick="setFilter('Completed')" 
-                class="filterBtn bg-red-200 hover:bg-red-300 px-4 py-2 rounded-full text-sm transition">
-                Completed
-            </button>
-        </div>
-
-        <!-- Search -->
-        <div class="w-full md:w-64">
-            <input 
-                type="text" 
-                id="searchInput"
-                placeholder="Search by title..."
-                class="w-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-300 px-4 py-2 rounded-full text-sm"
-            >
-        </div>
-
-    </div>
             <form id="projectForm">
                 <div class="mb-4">
                     <label class="block mb-2 text-sm font-medium">Project Title</label>
                     <input type="text" id="title"
-                           class="w-full px-3 py-2 border border-secondary rounded-lg bg-white focus:ring-2 focus:ring-accent focus:ring-2 focus:ring-blue-500">
->>>>>>> 98dac289955e2e83b7ab255a5c55733aa3c4bd8b
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-accent"
+                           placeholder="Enter project title">
                 </div>
-
                 <div class="mb-4">
                     <label class="block mb-2 text-sm font-medium">Description</label>
-<<<<<<< HEAD
-                    <textarea id="projectDescription"
-                        class="w-full px-3 py-2 border border-secondary rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-accent"
-                        placeholder="Describe your project"></textarea>
-=======
                     <textarea id="description"
-                        class="w-full px-3 py-2 border border-secondary rounded-lg bg-white focus:ring-2 focus:ring-accent focus:ring-2 focus:ring-blue-500"></textarea>
->>>>>>> 98dac289955e2e83b7ab255a5c55733aa3c4bd8b
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-accent"
+                        placeholder="Describe your project"></textarea>
                 </div>
-
                 <div class="mb-4">
                     <label class="block mb-2 text-sm font-medium">Type</label>
-<<<<<<< HEAD
-                    <select id="projectType" class="w-full px-3 py-2 border border-secondary rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-accent">
-=======
-                    <select id="type" class="w-full px-3 py-2border border-secondary rounded-lg bg-white focus:ring-2 focus:ring-accent focus:ring-2 focus:ring-blue-500">
->>>>>>> 98dac289955e2e83b7ab255a5c55733aa3c4bd8b
+                    <select id="type" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-accent">
                         <option>Durable</option>
                         <option>Perishable</option>
                     </select>
                 </div>
-
                 <button type="submit"
                         class="w-full bg-accent text-white py-2 rounded-lg hover:bg-green-700 transition">
                     Create
                 </button>
             </form>
-            <div id="projectList" class="mt-8 space-y-4"></div>
         </div>
-<<<<<<< HEAD
 
         <!-- Projects List -->
-        <h3 class="text-xl font-bold mt-8 mb-4 text-center">All Projects</h3>
-        <div id="projectsList"></div>
+        <h3 class="text-xl font-bold mt-8 mb-4">All Projects</h3>
+        <div id="projectList" class="mt-4 space-y-4"></div>
 
-=======
->>>>>>> 98dac289955e2e83b7ab255a5c55733aa3c4bd8b
     </div>
 </main>
+
     <script src="js/ui.js"></script>
     <script src="js/config.js"></script>
     <script src="js/mock.js"></script>

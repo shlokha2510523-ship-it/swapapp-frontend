@@ -44,9 +44,10 @@ function adaptProject(p) {
         id: p._id,
         title: p.title,
         description: p.description,
-        type: p.itemType,
+        type: p.category || p.itemType || "Durable",
         status: p.status === "active" ? "Open" :
-                p.status === "handed-off" ? "Reserved" : "Completed",
+                p.status === "reserved" ? "Reserved" :
+                p.status === "completed" ? "Completed" : "Open",
         createdBy: p.authorId?.name || "Unknown",
         reservedBy: p.currentOwnerId?.name || null,
         completedBy: null,
