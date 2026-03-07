@@ -32,5 +32,27 @@ async function apiRequest(endpoint, method = "GET", body = null) {
         throw new Error(data.message || "Something went wrong");
     }
 
-    return data;
+    if (endpoint === "/projects" && method === "GET") {
+        return (data.projects || []).map(adaptProject);
+    }
+
+    return data.projects ? { ...data, projects: data.projects.map(adaptProject) } : data;
+}
+
+function adaptProject(p) {
+    return {
+        id: p._id,
+        title: p.title,
+        description: p.description,
+        type: p.itemType,
+        status: p.status === "active" ? "Open" :
+                p.status === "handed-off" ? "Reserved" : "Completed",
+        createdBy: p.authorId?.name || "Unknown",
+        reservedBy: p.currentOwnerId?.name || null,
+        completedBy: null,
+        reservedAt: null,
+        lat: null,
+        lng: null,
+        history: []
+    };
 }
