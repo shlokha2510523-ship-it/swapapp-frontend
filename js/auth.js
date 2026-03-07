@@ -35,10 +35,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
                 localStorage.setItem("token", data.token);
-                localStorage.setItem("currentUser", JSON.stringify({ id: 1, name: "User" })); // ← move this UP
-                alert("Login successful!");
-                window.location.href = "dashboard.html"; // ← redirect last
-
+                localStorage.setItem("currentUser", JSON.stringify({
+                    id: data.user?.id || data.id,
+                    name: data.user?.name || data.name
+                }));
+                window.location.href = "dashboard.html";
             } catch (error) {
                 alert(error.message);
             }
